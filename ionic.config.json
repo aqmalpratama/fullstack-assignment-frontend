@@ -1,0 +1,8 @@
+{
+  "name": "hw-hci",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue",
+  "id": "de076cac"
+}
