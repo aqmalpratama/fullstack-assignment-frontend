@@ -7,7 +7,7 @@
           <ion-icon :icon="home" />
         </ion-tab-button>
 
-        <ion-tab-button tab="kolam" href="/kolam">
+        <ion-tab-button tab="kolam" href="/pond">
           <ion-icon :icon="water" />
         </ion-tab-button>
       </ion-tab-bar>
