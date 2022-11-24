@@ -1,4 +1,4 @@
-Fullstack assignment backend
+Fullstack assignment frontend
 
 <ul>
   <li>Muhammad Aqmal Khafidz Pratama</li>
