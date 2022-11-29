@@ -17,31 +17,24 @@
             class="card-kl"
             v-for="(dataPond, index) in dataPonds"
             v-bind:key="index"
+            :router-link="`/update/${dataPond._id}`"
           >
             <div class="card-kl-header">
-              <h3>{{ dataPond.alias }}</h3>
-              <button
-                :class="[
-                  dataPond.status == 'Aktif' || dataPond.status == 'Panen'
-                    ? 'btn btn-aktif'
-                    : 'btn btn-nonaktif',
-                ]"
-              >
-                {{ dataPond.status }}
-              </button>
+              <h3>{{ dataPond.name }}</h3>
+              <button :class="'btn btn-aktif'">Aktif</button>
             </div>
             <div class="card-kl-info">
               <p>
                 <ion-icon :icon="calendar"></ion-icon>
-                {{ formatDate(dataPond.build_at) }}
+                24-11-2022
               </p>
               <p>
                 <ion-icon :icon="calendarNumber"></ion-icon>
-                {{ getDiffDateFromNow(dataPond.build_at) }} Hari
+                5 Hari
               </p>
               <p>
                 <ion-icon :icon="fish"></ion-icon>
-                {{ dataPond.fish_alive }} Ekor
+                250 Ekor
               </p>
             </div>
           </div>
@@ -52,7 +45,6 @@
         <ion-fab-button href="/pondRegistration">
           <ion-icon :icon="add"></ion-icon>
         </ion-fab-button>
-        <!-- <button class="btn-add">+</button> -->
       </ion-fab>
     </ion-content>
   </ion-page>
@@ -81,16 +73,16 @@ export default defineComponent({
     IonFabButton,
   },
   methods: {
-    formatDate(date: string) {
-      const d = new Date(date);
-      const month = d.getMonth() + 1;
-      const day = d.getDate();
-      const year = d.getFullYear();
+    toDDMMYY(date: string) {
+      const newDate = new Date(date);
+      const month = newDate.getMonth() + 1;
+      const day = newDate.getDate();
+      const year = newDate.getFullYear();
       return `${day}-${month}-${year}`;
     },
-    getDiffDateFromNow(date: string) {
-      const d = new Date(date);
-      const diff = new Date().getTime() - d.getTime();
+    intervalDateFromNow(date: string) {
+      const newDate = new Date(date);
+      const diff = new Date().getTime() - newDate.getTime();
       return Math.floor(diff / (1000 * 60 * 60 * 24));
     },
   },
@@ -98,7 +90,7 @@ export default defineComponent({
     const dataPonds = ref();
 
     onMounted(async () => {
-      const response = await axios.get("http://jft.web.id/fishapi/api/ponds");
+      const response = await axios.get("http://127.0.0.1:5000/pond");
       dataPonds.value = response.data;
     });
 
@@ -113,18 +105,6 @@ export default defineComponent({
     };
   },
 });
-
-// export function formatDate(date: any) {
-//   const firstDate = new Date(date);
-//   const yyyy = firstDate.getFullYear();
-//   let mm = firstDate.getMonth() + 1; // Months start at 0!
-//   let dd = firstDate.getDate();
-
-//   if (dd < 10) dd = 0 + dd;
-//   if (mm < 10) mm = 0 + mm;
-//   return `${dd}-${mm}-${yyyy}`;
-//   // const formattedToday = dd + "/" + mm + "/" + yyyy;
-// }
 </script>
 
 <style scoped>
